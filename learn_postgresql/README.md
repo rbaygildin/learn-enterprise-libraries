@@ -1,6 +1,6 @@
 # Recursive queries
 
-1. Select subset of original set of digits which's sum is not more than specified amount
+1. Select subset of original set of digits which's sum is not more than specified amount (greedy algorithm)
 ```sql
 WITH RECURSIVE r(row,
                  res,
