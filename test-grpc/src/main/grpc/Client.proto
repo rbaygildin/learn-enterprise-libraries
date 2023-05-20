@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+option java_package = "org.demo.bank.client";
+
+enum StatusCode{
+  SUCCESS = 0;
+  BAD_REQUEST = 1;
+  NOT_FOUND = 2;
+  INTERNAL_ERROR = 3;
+}
+
+enum Gender{
+  MALE = 0;
+  FEMALE = 1;
+}
+
+message Status{
+  StatusCode code = 1;
+  string info = 2;
+}
+
+//create
+message CreateClientReqPayload{
+  string name = 1;
+  string surname = 2;
+  Gender gender = 3;
+  int32 age = 4;
+  string email = 5;
+}
+
+message CreateClientReq{
+  string clientId = 1;
+  CreateClientReqPayload payload = 2;
+}
+
+message CreateClientResPayload{
+  string id = 1;
+}
+
+message CreateClientRes{
+  Status status = 1;
+  optional CreateClientResPayload payload = 2;
+}
+
+//Search
+message SearchClientReq{
+  string clientId = 1;
+}
+
+message Client{
+  string id = 1;
+  string name = 2;
+  string surname = 3;
+  Gender gender = 4;
+  int32 age = 5;
+  string email = 6;
+  string createdAt = 7;
+  optional string updatedAt = 8;
+}
+
+message SearchClientRes{
+  Status status = 1;
+  repeated Client clients = 2;
+}
+
+
+service ClientService{
+  rpc createClient(CreateClientReq) returns (CreateClientRes);
+  rpc findClients(SearchClientReq) returns (SearchClientRes);
+}
+
